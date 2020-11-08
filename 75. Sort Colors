@@ -1,0 +1,61 @@
+75. Sort Colors
+
+solution approaches
+
+1. sort the array using build in function
+	O(nlog(n)) time complexity and O(1) space complexity
+
+	class Solution {
+	    public void sortColors(int[] nums) {
+	        Arrays.sort(nums);
+	    }
+	}
+
+2. counting the frequencies of 0's , 1's and 2's and replacing the same in the array accordingly
+	O(n) time complexity and O(1) space complexity
+
+	class Solution {
+	    public void sortColors(int[] nums) {
+	       int freq[] = new int[3];
+	       for(int i = 0 ; i < nums.length ; i++){
+	           freq[nums[i]]++;
+	       }
+	       int currentIndex = 0;
+	       for(int i = 0 ; i < freq.length ; i++){
+	           while(freq[i] != 0){
+	               nums[currentIndex] = i;
+	               currentIndex++;
+	               freq[i]--;
+	           }
+	       }
+	    }
+	}
+
+3. using three pointers and swapping when necessary
+   3 pointers left , mid and right points to finishing of 0's , finishing of 1's and starting of 2's
+
+	class Solution {
+	    public void sortColors(int[] nums) {
+	        int left = 0 , mid = 0 , right = nums.length - 1;
+       
+	        while(mid <= right){
+	            if(nums[mid] == 0){
+	                if(mid > left){
+	                  nums[mid] = nums[left];
+	                  nums[left] = 0;
+	                  left++;
+	                }else {
+	                    mid++;
+	                    left++;
+	                }
+	            }
+	            else if(nums[mid] == 1){
+	                mid++;
+	            }else {
+	                nums[mid] = nums[right];
+	                nums[right] = 2;
+	                right--;
+	            }
+	        }
+	    }
+	}
