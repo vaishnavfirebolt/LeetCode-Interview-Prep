@@ -1,0 +1,68 @@
+287. Find the Duplicate Number
+
+solution approaches
+
+1. For every integer in the array traversing the whole array and checking if there is a duplicate or not
+	O(n^2) time complexity and O(1) space complexity
+
+	class Solution {
+	    public int findDuplicate(int[] nums) {
+	      for(int i = 0 ; i< nums.length ; i++){
+	          for(int j = 0 ; j < nums.length ; j++){
+	              if(i != j){
+	                  if(nums[i] == nums[j])return nums[i];
+	              }
+	          }
+	      }
+	      return 0;
+	    }
+	}
+
+2. Sorting the array and checking if the current number is equal to next 
+	O(nlog(n)) time complexity and O(1) space complexity
+
+	class Solution {
+	    public int findDuplicate(int[] nums) {
+	        Arrays.sort(nums);
+	        for(int i = 0 ; i < nums.length -1 ; i++){
+        	    if(nums[i] == nums[i+1])return nums[i];
+	        }
+       		 return 0;
+    	    }
+	}
+
+3. Using a hashmap for storing the occurance of an element and then iterating to check if we if a duplicate or not
+	O(n) time complexity and O(n) space complexity
+
+	class Solution {
+  	  public int findDuplicate(int[] nums) {
+  	     Map<Integer , Boolean> map = new HashMap<>();
+  	     for(int i =0 ; i < nums.length ; i++){
+        	   if(map.containsKey(nums[i]))return nums[i];
+       		   else map.put(nums[i],true);
+      	     }
+       	     return 0;
+    	  }
+	}
+
+4. Solving it in O(n) time complexity and O(1) space complexity We use tortoise approach here 
+
+	class Solution {
+	    public int findDuplicate(int[] nums) {
+	        int slow = nums[0];
+	        int fast = nums[0];
+        
+	        do{
+	            slow = nums[slow];
+	            fast = nums[nums[fast]];
+	        }while(slow != fast);
+        
+	        fast = nums[0];
+	        while(slow != fast){
+	            slow = nums[slow];
+	            fast = nums[fast];
+	        }
+	        return slow;
+	    }
+	}
+	
