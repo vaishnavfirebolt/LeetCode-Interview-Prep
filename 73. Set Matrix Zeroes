@@ -1,0 +1,95 @@
+73. Set Matrix Zeroes
+
+solution approaches
+
+1. brute force we traverse the 2d matrix and if we find 0 then we change all 
+elements of corresponding row and column except 0's to such a number which is not possible 
+(otherwise this will not work) ## considering that values cannot be negative
+	O(nm * (n+m)) time complexity and O(1) space complexity
+
+    class Solution {
+        public void setZeroes(int[][] matrix) {
+            for(int i = 0 ; i < matrix.length ; i++){
+                for(int j = 0; j < matrix[0].length ; j++){
+                    if(matrix[i][j] == 0){
+                        for(int row = 0 ; row < matrix.length ; row++){
+                            if(matrix[row][j] != 0){
+                                matrix[row][j] = -1;
+                            }
+                        }
+                        for(int col = 0 ; col < matrix[0].length ; col++){
+                            if(matrix[i][col] != 0){
+                                matrix[i][col] = -1;
+                            }
+                        }
+                    }
+                }
+            }
+            for(int i = 0 ; i < matrix.length ; i++){
+                for(int j = 0; j < matrix[0].length ; j++){
+                    if(matrix[i][j] == -1){
+                        matrix[i][j] = 0;
+                    }
+                }
+            }
+        }
+    }
+
+
+2. using 2 arrays of length matrix length and matrix[0] length 
+	then storing the index of those row and col which is to be made zero
+	at last change all required values to 0
+
+	O(nm) time complexity and O(n + m) space complexity
+
+        class Solution {
+            public void setZeroes(int[][] matrix) {
+                int row[] = new int[matrix.length];
+                int col[] = new int[matrix[0].length];
+
+                for(int i = 0 ; i < matrix.length ; i++){
+                    for(int j = 0 ; j < matrix[0].length ; j++){
+                        if(matrix[i][j] == 0){
+                            row[i] = 1;
+                            col[j] = 1;
+                        }
+                    }
+                }
+                 for(int i = 0 ; i < matrix.length ; i++){
+                    for(int j = 0 ; j < matrix[0].length ; j++){
+                        if(row[i] == 1 || col[j] == 1){
+                            matrix[i][j] = 0;
+                        }
+                    }
+                 }
+            }
+        }
+
+3. instead of storing the index of row and col to be made zero seperately we do that in the matrix itself 
+	
+
+	O(nm) time complexity and O(1) space complexity
+
+
+            class Solution {
+                public void setZeroes(int[][] matrix) {
+                    boolean isColMadeZero = false;
+                    for(int i = 0 ; i < matrix.length ; i++){
+                          if(matrix[i][0] == 0) isColMadeZero = true;
+                        for(int j = 1 ; j < matrix[0].length ; j++){
+                            if(matrix[i][j] == 0){
+                                matrix[i][0] = matrix[0][j] = 0;
+                            }
+                        }
+                    }
+                     for(int i = matrix.length -1 ; i >= 0 ; i--){
+                        for(int j = matrix[0].length -1 ; j >= 1 ; j--){
+                            if( matrix[i][0] == 0 ||  matrix[0][j] == 0){
+                                matrix[i][j] = 0;
+                            }
+                        }if(isColMadeZero == true)matrix[i][0] = 0;
+                     }
+                }
+            }
+
+
