@@ -1,0 +1,39 @@
+118. Pascal's Triangle
+
+solution approaches
+
+1. we see that the current rows element == 1 if we are at current row's 0 or last index ,
+	second thing for other cases we have prev row's 2 elements sum as ans ,
+	therefore we have to store prev row and check the conditions.
+
+	Time complexity O(n^2) space complexity O(n)
+
+    class Solution {
+        public List<List<Integer>> generate(int numRows) {
+            List<List<Integer>> toReturn = new ArrayList<>();
+            List<Integer> cRow , prev = null;
+
+            for(int i = 0 ; i < numRows ; ++i){
+               cRow = new ArrayList<Integer>();
+               for(int j = 0 ; j <= i ; ++j){
+                   if(j == 0 || j == i){
+                       cRow.add(1);
+                   }else {
+                       cRow.add(prev.get(j-1) + prev.get(j));
+                   }
+               }
+                prev = cRow;
+                toReturn.add(cRow);
+            }
+            return toReturn;
+        }
+    }
+
+2 . tips in pascals triangle 
+	direct formula for nth row cth col
+	(n-1) ncr (c-1)
+
+3. if someone asks to print nth row of pascal triangle then
+        first element == 1 others will come by mutliplying by n-1/c -1 and n-- , c-- at every step , remember to list last element equal to 1
+
+
