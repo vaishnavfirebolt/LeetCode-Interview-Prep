@@ -1,0 +1,32 @@
+31. Next Permutation
+
+solution approaches
+
+1. Time complexity O(n) space complexity O(1)
+	
+    class Solution {
+        public void nextPermutation(int[] nums) {
+            int n = nums.length ;
+            if(n == 0 || n ==1)return;
+            int toSwapFirst = n - 2; 
+            while(toSwapFirst >= 0 && nums[toSwapFirst] >= nums[toSwapFirst+1])toSwapFirst--;
+            if(toSwapFirst >= 0){
+                int toSwapSecond = n - 1;
+                while(nums[toSwapSecond] <= nums[toSwapFirst]){
+                    toSwapSecond--;
+                }
+                int temp = nums[toSwapSecond];
+                nums[toSwapSecond] = nums[toSwapFirst];
+                nums[toSwapFirst] = temp;
+
+            }
+            int i = n-1;
+            int j = toSwapFirst + 1;
+            while(j < i){
+                    int k = nums[i];
+                    nums[i] = nums[j];
+                    nums[j] = k; 
+                    j++;i--;
+            }
+        }
+    }
