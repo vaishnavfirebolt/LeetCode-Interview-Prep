@@ -1,0 +1,23 @@
+1. Two Sum
+
+Solution Approaches
+
+  if a target is given and we divide it in two numbers then those number will be x and target - x 
+	we use this information to find the other pair
+
+1 brute force for every number find its other part in the array O(n^2) and O(1)
+
+2 use a map to store the seen elements
+
+    class Solution {
+        public int[] twoSum(int[] nums, int target) {
+           Map<Integer,Integer> map = new HashMap<>();
+            for(int  i = 0 ; i < nums.length ; i++){
+                if(map.containsKey(target - nums[i])){
+                    return new int[]{map.get(target - nums[i]) , i};
+                }
+                map.put(nums[i] , i);
+            }
+            return new int[]{1};
+        }
+    }
