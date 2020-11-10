@@ -1,0 +1,20 @@
+
+775. Global and Local Inversions
+
+solution approaches
+
+1. every local inversion is global inversion but every global inversion may or maynot be local inversion
+	so if there is any such global inversion then we return false else we return true
+	
+	Time complexity O(n) space complexity O(1)
+
+
+    class Solution {
+        public boolean isIdealPermutation(int[] A) {
+            for(int i=0;i<A.length;i++) {
+                if (i-A[i]>1 || i-A[i]<-1) 
+                    return false;
+            }
+            return true;
+        }
+    }
