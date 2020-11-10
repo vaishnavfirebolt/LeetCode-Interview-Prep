@@ -1,0 +1,44 @@
+
+74. Search a 2D Matrix
+
+solution approaches
+
+1. brute force search every row and col
+
+	Time complexity O(n * m) space complexity O(1)
+
+    class Solution {
+        public boolean searchMatrix(int[][] matrix, int target) {
+            for(int i = 0 ; i < matrix.length ; i++){
+                for(int j = 0 ; j < matrix[0].length ; j++){
+                    if(matrix[i][j] == target)return true;
+                }
+            }return false;
+        }
+    }
+
+
+2. binary search the matrix because all the numbers are sorted and last element of a row is smaller than the 
+	first element of next row.
+
+	Time complexity O(log(n * m)) space complexity O(1)
+
+    class Solution {
+        public boolean searchMatrix(int[][] matrix, int target) {
+            if(matrix.length == 0 || matrix[0].length == 0 || matrix == null)return false;
+            
+            int left = 0 ; int right = matrix.length * matrix[0].length - 1;
+            while(left <= right){
+                int mid = left + (right - left)/2;
+                int col = (mid)% matrix[0].length ; 
+                int row = mid / matrix[0].length ;
+                if(matrix[row][col] == target)return true;
+                else {
+                    if(matrix[row][col] < target){
+                        left  = mid + 1;
+                    }else right = mid - 1; 
+                }
+            }
+            return false;
+        }
+    }
