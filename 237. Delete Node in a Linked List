@@ -1,0 +1,22 @@
+
+237. Delete Node in a Linked List
+
+solution approach
+
+1. we cannot remove without having access to previous node so we copy data from next node to current node and then delete the next node
+
+	Time complexity O(1) space complexity O(1)
+    /**
+     * Definition for singly-linked list.
+     * public class ListNode {
+     *     int val;
+     *     ListNode next;
+     *     ListNode(int x) { val = x; }
+     * }
+     */
+    class Solution {
+        public void deleteNode(ListNode node) {
+            node.val = node.next.val;
+            node.next = node.next.next;
+        }
+    }
