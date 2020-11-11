@@ -1,0 +1,72 @@
+19. Remove Nth Node From End of List
+
+solution approaches
+
+1. counting the number of elements then iterating till target -1 element and then node.next = node.next.next
+	O(n) Time & O(1) space
+
+    /**
+     * Definition for singly-linked list.
+     * public class ListNode {
+     *     int val;
+     *     ListNode next;
+     *     ListNode() {}
+     *     ListNode(int val) { this.val = val; }
+     *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+     * }
+     */
+    class Solution {
+        public ListNode removeNthFromEnd(ListNode head, int n) {
+
+            if(head == null)return head;
+
+            int count = 1;
+            ListNode temp = head;
+            while(temp.next != null){
+                temp = temp.next;
+                count++;
+            }
+            if(count < n)return head;
+
+            count = count - n;
+            if(count == 0)return head.next;
+            temp = head;
+            while(count != 1){
+                temp = temp.next;
+                count--;
+            }
+            temp.next = temp.next.next;
+            return head;
+        }
+    }
+
+2. do the above in one pass by reaching to removing elements index - 1
+	O(n) Time & O(1) space
+
+    /**
+     * Definition for singly-linked list.
+     * public class ListNode {
+     *     int val;
+     *     ListNode next;
+     *     ListNode() {}
+     *     ListNode(int val) { this.val = val; }
+     *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+     * }
+     */
+    class Solution {
+        public ListNode removeNthFromEnd(ListNode head, int n) {
+           ListNode dummy = new ListNode(-1, head), 
+                    p = dummy, q = head;
+
+            while (n-- > 0)
+                q = q.next;
+
+            while (null != q) {
+                p = p.next;
+                q = q.next;
+            }
+
+            p.next = p.next.next;
+            return dummy.next;
+        }
+    }
