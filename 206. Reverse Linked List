@@ -1,0 +1,32 @@
+206. Reverse Linked List
+
+solution approaches
+
+1. make a new head , then save the next node as it will be lost during the transaction , now head.next is newHead and then newHead is head
+	O(n) time and O(1) space
+
+    /**
+     * Definition for singly-linked list.
+     * public class ListNode {
+     *     int val;
+     *     ListNode next;
+     *     ListNode() {}
+     *     ListNode(int val) { this.val = val; }
+     *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+     * }
+     */
+    class Solution {
+        public ListNode reverseList(ListNode head) {
+            ListNode toReturn = null;
+            ListNode next = null;
+            while(head != null){
+                next = head.next;
+                head.next = toReturn;
+                toReturn = head;
+                head = next;
+            }
+
+            return toReturn;
+        }
+    }
+
