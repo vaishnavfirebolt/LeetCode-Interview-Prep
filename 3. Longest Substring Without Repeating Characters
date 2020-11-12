@@ -1,0 +1,75 @@
+3. Longest Substring Without Repeating Characters
+
+solution approches
+
+1. brute force check all substrings
+
+	Time O(n^2) and space O(n)
+
+    class Solution {
+        public int lengthOfLongestSubstring(String s) {
+            int ans = 0;
+            Set<Character> set = new HashSet<>();
+    outer:    for(int i = 0  ; i < s.length() ; i++){
+                for(int j = i ; j <  s.length() ; j++){
+                    if(set.contains(s.charAt(j))){
+                        set.clear();
+                        continue outer;
+                    }else set.add(s.charAt(j));
+                    ans = Math.max(set.size() , ans);
+                }
+            }
+            return ans;
+        }
+    }
+
+2. using a set to store characters from a range left to right and if there is repeating character then move left otherwise move right
+	store ans accordingly
+
+	O(n^2) time and O(n) space
+
+    class Solution {
+        public int lengthOfLongestSubstring(String s) {
+            int left = 0;
+            int right = 0;
+            Set<Character> set = new HashSet<>();
+            int ans = 0;
+            while(right < s.length()){
+                if(!set.contains(s.charAt(right))) {
+                    set.add(s.charAt(right));
+                    right++;
+                }
+                else {
+                    set.remove(s.charAt(left));
+                    left++;
+                }
+                ans = Math.max(ans , set.size());
+            }
+            return ans;
+        }
+    }
+
+3. using a hash map to store character and last visited index to reduce time complexity
+	
+ 	Time O(n) and space O(n)
+
+    class Solution {
+        public int lengthOfLongestSubstring(String s) {
+            int left = 0 ;
+            int right = 0;
+            Map<Character , Integer > map = new HashMap<>();
+            int ans = 0 ;
+            while(right < s.length()){
+                if(!map.containsKey(s.charAt(right))){
+                   
+                }else {
+                    left =  Math.max(left , map.get(s.charAt(right)) + 1);  
+                }
+                map.put(s.charAt(right) , right);
+                ans = Math.max(ans , right - left +1 );
+                right++;
+                
+            }
+            return ans;
+        }
+    }
