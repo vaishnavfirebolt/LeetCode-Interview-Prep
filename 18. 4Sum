@@ -1,0 +1,51 @@
+18. 4Sum
+
+solution approaches
+
+1. use 4 for loops to generate all possible quarduplates and check if sum is equal to target or not and then take the unique pairs
+	O(n^4) Time and O(1) additonal space
+
+2. quarduplates can be seen as two pairs of numbers we generate all 2 pairs and in the remaining array find the other half using 2 pointers
+	for ease sort the array ---> to avoid sorting duplicate entries in the end
+	O(n^3) time and O(1) additional
+
+    class Solution {
+        public List<List<Integer>> fourSum(int[] nums, int target) {
+            List<List<Integer>> ans = new ArrayList<>();
+            if(nums == null || nums.length < 4)return ans;
+            int n = nums.length;
+            Arrays.sort(nums);
+
+            for(int i = 0 ; i < n - 3 ; i++){
+                for(int j = i + 1 ; j < n -2 ; j++){
+                    int newTarget = target - nums[i] - nums[j];
+                    int left = j + 1;
+                    int right = n - 1;
+
+                    while(left < right){
+                        int twoSum = nums[left] + nums[right];
+                        if(twoSum < newTarget)left++;
+                        else if (twoSum > newTarget)right--;
+                        else {
+                            List<Integer> quardToAdd = new ArrayList<>();
+                            quardToAdd.add(nums[i]);
+                            quardToAdd.add(nums[j]);
+                            quardToAdd.add(nums[left]);
+                            quardToAdd.add(nums[right]);
+                            ans.add(quardToAdd);
+
+				// these are to avoid duplicates and make code faster
+
+                            while(left < right && nums[left] == nums[left + 1])left++;
+                            left++;
+                            while(left < right && nums[right] == nums[right - 1])right--;
+                            right--;
+                        }
+                    }
+                    while(j + 1 < n - 2 && nums[j+1] == nums[j])j++;
+                }
+                while(i + 1 < n -3 && nums[i+1] == nums[i])i++;
+            }
+            return ans;
+        }
+    }
