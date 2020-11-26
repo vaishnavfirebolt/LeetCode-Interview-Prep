@@ -1,0 +1,39 @@
+309. Best Time to Buy and Sell Stock with Cooldown
+
+
+Solution Approches
+
+1. using dp - dp[index][0] = what is the max profit i can earn from day index to N if i dont own a stock 
+	      dp[index][1] = what is the max profit i can earn from day index to N if i own a stock 
+
+   cases when i own a stock 
+	i either sell it and skip the day after or i dont sell it
+   cases when i dont own a stock
+	i either buy a new stock or i dont 
+
+
+    class Solution {
+
+        Integer dp[][];
+
+        public int maxProfit(int[] prices) {
+            if(prices == null || prices.length == 0)return 0;
+            dp = new Integer[prices.length + 3][2];
+            return go(0 , false , prices);
+        }
+
+        int go(int index , boolean own , int[] prices){
+            if(index >= prices.length) return 0;
+            if(own){
+                    if(dp[index][0] != null)return dp[index][0];
+                    int opt1 = prices[index] + go(index+2 , false , prices);
+                    int opt2 = go(index+1 , true , prices);
+                    return dp[index][0] = Math.max(opt1 , opt2);
+                }else {
+                    if(dp[index][1] != null)return dp[index][1];
+                    int opt1 = -prices[index] + go(index+1 , true , prices);
+                    int opt2 = go(index+1 , false , prices);
+                    return dp[index][1] = Math.max(opt1 , opt2);
+                }
+        }
+    }
