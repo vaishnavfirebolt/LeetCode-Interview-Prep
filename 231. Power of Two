@@ -1,0 +1,24 @@
+231. Power of Two
+
+class Solution {
+    public boolean isPowerOfTwo(int n) {
+        boolean toReturn = false;
+        for (int i = 0; i <= 31; i++){
+            if (n == Math.pow(2, i)){
+                toReturn = true;
+                break;
+            }
+            else continue;
+        }
+        return toReturn;
+    }
+}
+
+o(1) solution
+
+class Solution {
+    public boolean isPowerOfTwo(int n) {
+        if(n <= 0)return false;
+        return ((n&(n-1)) == 0);
+    }
+}
