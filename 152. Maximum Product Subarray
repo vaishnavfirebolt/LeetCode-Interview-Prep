@@ -1,0 +1,19 @@
+152. Maximum Product Subarray
+
+class Solution {
+    public int maxProduct(int[] nums) {
+        int ans = nums[0];
+        int max = nums[0];
+        int min = nums[0];
+        int pmax = nums[0];
+        int pmin = nums[0];
+        for(int i = 1 ; i < nums.length ; i++){
+           max = Math.max(nums[i] , Math.max(pmax * nums[i] , pmin * nums[i]));
+           min = Math.min(nums[i] , Math.min(pmax * nums[i] , pmin * nums[i]));
+           ans = Math.max(ans , max);
+           pmax = max;
+           pmin = min;
+        }
+        return ans;
+    }
+}
