@@ -1,0 +1,26 @@
+40. Combination Sum II
+
+
+class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> toReturn = new ArrayList<>();
+        Arrays.sort(candidates);
+        addCombinations(0, target , candidates , toReturn , new ArrayList<Integer>());
+        return toReturn;
+    }
+    private void addCombinations(int index , int target , int[] candidates , List<List<Integer>> toReturn , List<Integer> listToAdd){
+        if(target == 0){
+            toReturn.add(new ArrayList<>(listToAdd));
+            return;
+        }
+        if(target < 0)return;
+
+        for(int i = index ; i < candidates.length ; i++){
+            if(i == index || candidates[i] != candidates[i-1]){
+            listToAdd.add(candidates[i]);
+            addCombinations(i + 1, target - candidates[i] , candidates , toReturn , listToAdd);
+            listToAdd.remove(listToAdd.size() - 1);
+            }
+        }
+    }
+}
