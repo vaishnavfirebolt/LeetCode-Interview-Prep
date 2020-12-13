@@ -1,0 +1,25 @@
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> toReturn = subset(0 , nums);
+        return toReturn ; 
+    }
+    private  List<List<Integer>> subset(int index , int []nums){
+        if(index == nums.length){
+            List<Integer> list = new ArrayList<>();
+            List<List<Integer>> l = new ArrayList<>();
+            l.add(list);
+            return l;
+        }
+        List<List<Integer>> got = subset(index + 1 , nums);
+       
+        List<List<Integer>> toReturn = new ArrayList<>();
+        for(List<Integer> l: got){
+            toReturn.add(l);
+            List<Integer> list = new ArrayList<>(l);
+            list.add(nums[index]);
+            toReturn.add(list);
+        }
+        
+        return toReturn;
+    }
+}
