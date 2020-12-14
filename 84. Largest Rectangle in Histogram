@@ -1,0 +1,15 @@
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        int answer = 0;
+        for(int i = 0; i < heights.length; i++){
+            int currentHeight = heights[i];
+            int left = i, right = i;
+            while(left >= 0 && heights[left] >= currentHeight) left--;
+            while(right < heights.length && heights[right] >= currentHeight) right++;
+            answer = Math.max(answer,((right -1) - (left + 1) + 1 )*currentHeight );
+            
+        }
+        
+        return answer;
+    }
+}
