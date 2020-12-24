@@ -1,0 +1,16 @@
+class Solution {
+    public int maximumSum(int[] arr) {
+        int n = arr.length ; 
+        int ans = arr[0];
+        int sumWithoutDeletion = arr[0];
+        int sumWithDeletion = 0;
+        
+        for(int i = 1 ; i < n ; i++){
+            sumWithDeletion = Math.max(sumWithDeletion + arr[i] , sumWithoutDeletion);
+            sumWithoutDeletion = Math.max(sumWithoutDeletion + arr[i] , arr[i]);
+            ans = Math.max(ans , Math.max(sumWithDeletion , sumWithoutDeletion));
+        }
+        
+        return ans;
+    }
+}
