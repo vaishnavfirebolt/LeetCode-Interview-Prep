@@ -1,0 +1,20 @@
+class Solution {
+    public int maxSumRangeQuery(int[] nums, int[][] requests) {
+        final int mod = (int)1e9 + 7;
+        int count[] = new int[nums.length];
+        for(int[] request : requests){
+            count[request[0]]++;
+            if(request[1] != nums.length-1)count[request[1]+1]--;
+        }
+        for(int i = 1 ; i < nums.length ; i++){
+            count[i] += count[i-1];
+        }
+        Arrays.sort(nums);
+        Arrays.sort(count);
+        long ans = 0;
+        for(int i = 0 ; i < nums.length ; i++){
+            ans +=(long)nums[i] * count[i];
+        }
+        return (int)(ans%mod);
+    }
+}
