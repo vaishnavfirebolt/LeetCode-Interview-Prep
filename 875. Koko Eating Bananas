@@ -1,0 +1,24 @@
+//Standard binary search
+
+class Solution {
+    public int minEatingSpeed(int[] piles, int h) {
+       int max = -1;
+        for(int i : piles){
+            if(max < i) max = i;
+        }
+        int ans = -1;
+        int low = 1 ; int high = max;
+        while(low <= high){
+            int mid = low + ((high - low)/2);
+            int sum = 0;
+            for(int i : piles){
+                sum += (i+mid-1) / mid;
+            }
+            if(sum <= h){
+                ans = mid;
+                high = mid-1;
+            }else low = mid+1;
+        }
+        return ans;
+    }
+}
