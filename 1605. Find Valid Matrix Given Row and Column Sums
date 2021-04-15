@@ -1,0 +1,16 @@
+// look at the conditions given in the question , choose the max possible answer at each position
+
+class Solution {
+    public int[][] restoreMatrix(int[] rowSum, int[] colSum) {
+         int[][] answer = new int[rowSum.length][colSum.length];
+        for(int i = 0 ; i < rowSum.length ; i++){
+            for(int j = 0 ; j < colSum.length ; j++){
+                int valueToPut = Math.min(rowSum[i] , colSum[j]);
+                answer[i][j] += valueToPut;
+                rowSum[i] -= valueToPut;
+                colSum[j] -= valueToPut;
+            }
+        }
+        return answer;
+    }
+}
